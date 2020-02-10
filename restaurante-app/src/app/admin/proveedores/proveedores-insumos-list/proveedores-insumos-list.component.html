@@ -1,0 +1,63 @@
+<div class="col-md-12">
+  <div class="card">
+    <div class="card-header card-header-primary">
+      <h4 class="card-title pull-left">Lista de insumos del proveedor</h4>
+        <button (click)="btnAgregar()" class="btn btn-white btn-round pull-right" style="padding:10px">
+          Agregar nuevo insumo del proveedor
+          <i class="material-icons">add</i>
+        </button>
+    </div>
+    <div class="card-body">
+    <div class="table-responsive">
+      <table class="table">
+        <thead class="text-primary">
+          <tr>
+            <th scope="col">#</th>
+            
+            <th scope="col">Nombre del insumo</th>            
+            <th scope="col">Cantidad</th>
+            <th scope="col"></th>            
+            <th scope="col" ></th>
+          </tr>
+        </thead>
+      <tbody>
+        <tr *ngFor="let insumo of insumos; index as i" >  
+                                                                     
+          <td>
+            {{i+1}}
+          </td>
+          
+          <td>
+            {{insumo.nombre_insumo}}
+          </td>
+          <td>
+            {{insumo.cantidad_minima}}
+          </td>          
+        
+          <td>
+              <button  class="btn btn-white btn-round btn-just-icon" (click)="btnEditarInsumo(insumo.idinsumo)">
+              <i class="material-icons">create</i>
+              </button>
+            
+          </td>
+          
+          <td>
+            <button  class="btn btn-white btn-round btn-just-icon" (click)="btnEliminarInsumo(insumo.idinsumo)">
+            <i class="material-icons">delete</i>
+            </button>
+          </td>
+        </tr>
+      <div class="pull-left">                  
+          <button type="submit" class="btn btn-primary " (click)="btnRetroceder()">
+                      Retroceder
+          </button>                                     
+      </div>
+
+
+    </tbody>
+    </table>
+
+    </div>
+    </div>
+  </div>
+</div>

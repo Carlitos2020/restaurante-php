@@ -1,0 +1,78 @@
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12">
+             <div class="card">
+                <div class="card-header card-header-primary">
+                  <button *ngIf="estaCajaAbierta" (click)="btnRegistrarOperacion()" class="btn btn-white btn-round pull-right" style="padding:10px">
+                      Registrar nueva operacion
+                      <i class="material-icons">add</i>
+                  </button>
+                  <h4 class="card-title ">Caja</h4>
+                  <p class="card-category"> Movimientos de la caja actual</p>
+                </div>
+                <div class="card-body">
+                  <div class="table-responsive">
+                    
+                    <div *ngIf="!estaCajaAbierta">
+                      <p>¿La caja no está abierta, desea abrirla?</p>
+                      <input type="number" [(ngModel)]="montoActual" class="form-control validate" name="montoActual" step="0.01" placeholder="Monto inicial de la caja">
+                      <button type="button" (click)="btnAbrirCaja()" class="btn btn-info btn-round" data-toggle="modal" data-target="#modal-abrir-caja">Abrir caja
+                      </button>            
+                    </div>
+
+                    <table *ngIf="estaCajaAbierta" class="table">
+                      	<thead class=" text-primary">
+	                        <tr>
+	                        	<th>
+		                          #
+		                        </th>
+		                        <th>
+		                          Descripcion
+		                        </th>
+		                        <th>
+		                          Monto
+		                        </th>
+                            <th>
+                              Hora
+                            </th>
+	                      	</tr>
+                  		</thead>
+                      <tbody>
+                        <tr *ngFor="let operacion of operacionesDeLaCaja; index as i">
+                          <td>
+                            {{ i+1 }}
+                          </td>
+                          <td>
+                            {{ operacion.descripcion }}
+                          </td>
+                          <td *ngIf="operacion.monto > 0" class="text-success">
+                            + S./{{ operacion.monto | number:'.2' }}
+                          </td>
+                          <td *ngIf="operacion.monto < 0" class="text-danger">
+                            - S./{{ -operacion.monto | number:'.2' }}
+                          </td>
+                          <td>
+                          	{{ operacion.created_at |  date:'HH:mm' }}
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    
+
+                      <div>
+                        <h3>Monto actual en la caja: <strong>S/. {{ montoActual | number:'.2' }}</strong> </h3>
+                      </div>
+                </div>
+
+                <div *ngIf="estaCajaAbierta">
+                      <p class="text-danger">¿Desea cerrar la caja?</p>
+                      <label class="bmd-label-floating">Monto final de la caja</label>
+                      <input type="number" [(ngModel)]="montoFinal" class="form-control validate" name="montoFinal" step="0.01" placeholder="Monto final de la caja">
+                      <button type="button" (click)="btnCerrarCaja()" class="btn btn-danger btn-round">Cerrar caja
+                      </button>
+                </div>
+              </div>
+            </div>
+        
+	</div>
+</div>

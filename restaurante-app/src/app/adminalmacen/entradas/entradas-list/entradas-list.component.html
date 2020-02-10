@@ -1,0 +1,56 @@
+<div class="col-md-12">
+  <div class="card">
+    <div class="card-header card-header-primary">
+      <h4 class="card-title pull-left">Lista de Entradas</h4>
+        <button (click)="btnAgregar()" class="btn btn-white btn-round pull-right" style="padding:10px">
+          Agregar nueva entrada
+          <i class="material-icons">add</i>
+        </button>
+    </div>
+    <div class="card-body">
+    <div class="table-responsive">
+      <table class="table">
+        <thead class="text-primary">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Insumo</th>
+            <th scope="col">Cantidad</th>
+            <th scope="col">Fecha</th>
+            <th scope="col" ></th>
+            <th scope="col" ></th>
+          </tr>
+        </thead>
+      <tbody>
+        <tr *ngFor="let entrada of entradas; index as i">          
+          <td>
+            {{i+1}}
+          </td>
+          <td>
+            {{entrada.nombre_insumo}}
+          </td>
+          <td>
+            {{entrada.cantidad }} {{ entrada.unidades}}
+          </td>
+          <td >
+            {{entrada.fecha}}
+          </td>           
+          <td>
+              <button  class="btn btn-success btn-round btn-just-icon" (click)="btnEditar(entrada.idhistorial_almacen)" data-toggle="tooltip" title="Editar entrada">
+              	<i class="material-icons">create</i>
+              </button>
+            
+          </td>
+          <td>
+            <button  class="btn btn-danger btn-round btn-just-icon" (click)="btnEliminar(entrada.idhistorial_almacen)" data-toggle="tooltip" title="Eliminar entrada">
+            	<i class="material-icons">delete</i>
+          	</button>
+          </td>
+      </tr>
+
+    </tbody>
+    </table>
+
+    </div>
+    </div>
+  </div>
+</div>

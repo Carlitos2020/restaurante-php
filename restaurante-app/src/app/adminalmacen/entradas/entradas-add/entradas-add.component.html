@@ -1,0 +1,48 @@
+		<div class="container-fluid">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="card">
+                <div class="card-header card-header-primary">
+                  <h4 class="card-title">Registrar una entrada al almacen</h4>
+                </div>
+                <div class="card-body">
+                  <form (ngSubmit)="btnAgregarEntrada()">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group bmd-form-group">
+                          <select [(ngModel)]="idInsumo" class="form-control" name="idInsumo" required>
+                            <option selected="true" value="0" disabled>-- Escoja el insumo --</option>
+                            <option *ngFor="let insumo of insumos" [ngValue]="insumo.idinsumo">
+                              {{ insumo.nombre_insumo }}
+                            </option>           
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group bmd-form-group">
+                          <input type="number" class="form-control" step="0.1" [(ngModel)]="cantidad" name="cantidad" required placeholder="Cantidad de entrada">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <!--
+                        <textarea [(ngModel)]="surname" placeholder="Descripcion">
+                          
+                        </textarea>
+                      -->
+                      </div>
+                    </div>
+                    <div class="pull-right">
+                      <button type="submit" class="btn btn-primary">
+                        Registrar entrada
+                      </button>
+                      <button class="btn btn-secondary" (click)="btnCancelar()">Cancelar</button>
+                    </div>
+                    <div class="clearfix"></div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>

@@ -1,0 +1,35 @@
+		<div class="container-fluid">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="card">
+                <div class="card-header card-header-primary">
+                  <h4 class="card-title">Editar Plato</h4>
+                  <p class="card-category">Edite el nombre y/o la cantidad mínima del plato</p>
+                </div>
+                <div class="card-body">
+                  <form (ngSubmit)="btnActualizarPlato()">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group bmd-form-group">
+                          <input type="text" class="form-control" [(ngModel)]="nombre_plato" name="nombrePlato" required placeholder="Nombre del plato">
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group bmd-form-group">
+                          <input type="number" class="form-control" step="0.1" [(ngModel)]="precio" name="precioPlato" required placeholder=" Precio del Plato">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="pull-right">
+                      <button type="submit" class="btn btn-primary ">
+                        Actualizar Plato
+                      </button>
+                       <button class="btn btn-primary" (click)="btnCancelar()">Cancelar</button>
+                    </div>
+                    <div class="clearfix"></div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>

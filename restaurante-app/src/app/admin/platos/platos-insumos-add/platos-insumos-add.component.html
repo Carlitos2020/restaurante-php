@@ -1,0 +1,42 @@
+  <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="card">
+                <div class="card-header card-header-primary">
+                  <h4 class="card-title">Agregar Insumo del Plato</h4>
+                  <p class="card-category">Ingrese el nombre y la cantidad del insumo</p>
+                </div>
+                <div class="card-body">
+                  <form (ngSubmit)="btnAgregarInsumoPlato()">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group bmd-form-group">
+                          <select [(ngModel)]="idInsumo" class="form-control" name="idInsumo" required>
+                            <option selected="true" value="0" disabled>-- Seleccione el insumo --</option>
+                            <option *ngFor="let insumo of insumos" [ngValue]="insumo.idinsumo" >
+                              {{ insumo.nombre_insumo }}
+                            </option>           
+                          </select>                          
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group bmd-form-group">
+                          <input type="number" class="form-control" step="0.1" [(ngModel)]="cantidad_minima" name="cantidadInsumo" required placeholder="Cantidad del insumo">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="pull-right">
+                      <button type="submit" class="btn btn-primary">
+                        Agregar insumo
+                      </button>
+                      <button class="btn btn-primary" (click)="btnCancelar()">Cancelar</button>
+                    </div>
+                    <div class="clearfix"></div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+

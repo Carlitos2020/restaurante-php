@@ -1,0 +1,57 @@
+<div class="col-md-12">
+              <div class="card">
+                <div class="card-header card-header-primary">
+                  <h4 class="card-title pull-left">Lista de insumos</h4>
+                    <button (click)="btnAgregar()" class="btn btn-white btn-round pull-right" style="padding:10px">
+                      Agregar nuevo insumo
+                      <i class="material-icons">add</i>
+                    </button>
+                </div>
+                <div class="card-body">
+                  <div class="table-responsive">
+                    <table class="table">
+                      <thead class=" text-primary">
+                        <tr><th>
+                          #
+                        </th>
+                        <th>
+                          Nombre insumo
+                        </th>
+                        <th>
+                          Cantidad mínima
+                        </th>
+                        <th>
+                          <!-- Editar -->
+                        </th>
+                        <th>
+                          <!-- Eliminar -->
+                        </th>
+                      </tr></thead>
+                      <tbody>
+                        <tr *ngFor="let insumo of insumos; index as i">
+                          <td>
+                            {{i+1}}
+                          </td>
+                          <td>
+                            {{insumo.nombre_insumo}}
+                          </td>
+                          <td>
+                            {{insumo.cantidad_minima }} {{ insumo.unidades}}
+                          </td>
+                          <td>
+                            <button (click)="btnEditar(insumo.idinsumo)" class="btn btn-success btn-round btn-just-icon" data-toggle="tooltip" title="Editar insumo">
+                              <i class="material-icons">create</i>
+                            </button>
+                          </td>
+                          <td>
+                            <button (click)="btnEliminar(insumo.idinsumo)" class="btn btn-danger btn-round btn-just-icon" data-toggle="tooltip" title="Eliminar insumo">
+                              <i class="material-icons">delete</i>
+                            </button>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>

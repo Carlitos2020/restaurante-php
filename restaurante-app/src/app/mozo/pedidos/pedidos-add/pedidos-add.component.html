@@ -1,0 +1,22 @@
+                  <h3>Registrar pedido para la mesa {{ numMesa }}</h3>
+                  <form (ngSubmit)="btnAgregarPedido()">
+                    <input [(ngModel)]="numMesa" class="form-control" name="numMesa" type="hidden">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-group bmd-form-group">
+                          <select [(ngModel)]="idPlato" class="form-control" name="idPlato" required>
+                            <option selected="true" value="0" disabled>-- Seleccione el plato --</option>
+                            <option *ngFor="let plato of platos" [ngValue]="plato.idplato" [disabled]="!plato.esta_activo">
+                              {{ plato.nombre_plato }}
+                            </option>           
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="pull-right">
+                      <button type="submit" class="btn btn-primary btn-round">
+                        Agregar Pedido
+                      </button>
+                    </div>
+                    <div class="clearfix"></div>
+                  </form>

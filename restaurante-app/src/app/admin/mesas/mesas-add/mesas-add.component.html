@@ -1,0 +1,47 @@
+ <div class="col-lg-6 col-md-6">
+        <div class="card">
+          <div class="card-header card-header-primary">
+            <h4 class="card-title">Mesas</h4>
+          </div>              
+          <div class="card-body">
+            <div class="row">
+              <div *ngFor="let mesa of mesas" class="col-xs-12 col-md-4">
+                <button (click)="btnCambioNumeroMesa(mesa.num_mesa)" class="btn btn-light btn-success" class="btn btn-round" [ngClass]="{'btn-success': mesa.esta_activa, 'btn-secondary': !mesa.esta_activa, 'active': mesa.num_mesa === mesaEscogida}" [disabled]="!mesa.esta_activa">
+                  M{{mesa.num_mesa}}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+		<div class="container-fluid">
+          <div float="pull-right">
+            <div class="col-md-4 col-lg-4">
+              <div class="card">
+                <div class="card-header card-header-primary">
+                  <h4 class="card-title">Registrar Mesa</h4>
+                  <p class="card-category">Ingrese el numero de la nueva mesa</p>
+                </div>
+                <div class="card-body">
+                  <form (ngSubmit)="btnAgregarMesa()">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group bmd-form-group">
+                          <input type="text" class="form-control" [(ngModel)]="numero_mesa" name="numeroMesa" required placeholder="Numero de la mesa">
+                        </div>
+                      </div>
+                      
+                    </div>
+                    <div class="pull-right">
+                      <button type="submit" class="btn btn-primary">
+                        Agregar Mesa
+                      </button>
+                      <button class="btn btn-primary" (click)="btnCancelar()">Cancelar</button>
+                    </div>
+                    <div class="clearfix"></div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>

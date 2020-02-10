@@ -1,0 +1,40 @@
+		<div class="container-fluid">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="card">
+                <div class="card-header card-header-primary">
+                  <h4 class="card-title">Agregar Insumo</h4>
+                  <p class="card-category">Ingrese el nombre y la cantidad mínima del nuevo insumo</p>
+                </div>
+                <div class="card-body">
+                  <form (ngSubmit)="btnAgregarInsumo()">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group bmd-form-group">
+                          <input type="text" class="form-control" [(ngModel)]="nombre_insumo" name="nombreInsumo" required placeholder="Nombre del insumo">
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="form-group bmd-form-group">
+                          <input type="number" class="form-control" step="0.1" [(ngModel)]="cantidad_minima" name="cantidadInsumo" required placeholder="Cantidad mínima del insumo">
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="form-group bmd-form-group">
+                          <input type="text" class="form-control" [(ngModel)]="unidades" name="unidades" required placeholder="unidades del insumo">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="pull-right">
+                      <button type="submit" class="btn btn-primary">
+                        Agregar insumo
+                      </button>
+                      <button class="btn btn-primary" (click)="btnCancelar()">Cancelar</button>
+                    </div>
+                    <div class="clearfix"></div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>

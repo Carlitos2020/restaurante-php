@@ -1,0 +1,359 @@
+<p>Bienvenido</p>
+
+<<<<<<< HEAD
+<script src="node_modules/chart.js/src/chart.js"></script>
+=======
+ 
+<!--The content below is only a placeholder and can be replaced.-->
+<div style="text-align:center">
+    <h1>
+      Welcome to {{ title }}!
+    </h1>
+    <canvas id="lineChart" ></canvas>
+    <canvas id="barChart"></canvas>
+    <canvas id="pieChart"></canvas>
+  </div>
+
+
+    
+>>>>>>> 3d237f49a24b54a71762a1686ee6fa7dcc11383e
+<div class="col-md-12">
+  <div class="card">
+    <div class="card-header card-header-primary">
+      <h4 class="card-title">Reporte de Almacén</h4>
+        
+    </div>
+    <div class="card-body">
+    <div class="table-responsive">
+      <table class="table">
+        <thead class="text-primary">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Alerta</th>
+            <th scope="col">Cantidad Total</th>
+            
+          </tr>
+        </thead>
+      <tbody>
+        <tr *ngFor="let existencia of existencias; index as i">          
+          <td>
+            {{i+1}}
+          </td>
+          <td>
+            {{existencia.Insumo }}
+          </td>
+          <td>
+            <div [ngClass]="{
+              'circuloVerde' : (+(existencia.Total)>=(+(existencia.minimo)*1.3)),
+              'circuloAmarillo' : (+(existencia.Total)>+(existencia.minimo) && +(existencia.Total)<(+(existencia.minimo)*1.3)),
+              'circuloRojo' : (+(existencia.Total)<=+(existencia.minimo))             
+              }">
+              
+            </div>
+          </td>  
+          <td>
+            {{existencia.Total}} {{ existencia.unidades }}
+          </td>
+          
+      </tr>
+
+    </tbody>
+    </table>
+
+    </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+	        <div class="card-header card-header-primary">
+	            <h4 class="card-title ">Reporte de consumo por Fecha y hora</h4>
+	        </div>
+         	<div class="card-body">
+	         	<div>
+	         		<h4>Elija la fecha</h4>
+	         		<form (ngSubmit)="btnAceptar(selectedDate)" >
+		              <div class="row">
+		                <div class="col-md-6">
+		                  <div class="form-group">
+                        <mat-form-field>
+                          <input matInput [matDatepicker]="picker" name="fecha1" placeholder="Fecha" [(ngModel)]="selectedDate"  dateFormat= "dd-mm-yyyy" required>
+                          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                          <mat-datepicker #picker></mat-datepicker>
+                        </mat-form-field>
+		                  </div>
+		                </div>
+		              </div>               
+		              <div class="pull-right">                     
+		                <button type="submit"  class="btn btn-primary" >
+		                    Aceptar
+		                </button>                    
+		              </div>                  
+           			</form>
+	         		
+			    	<div>
+			    		<!--<canvas id="estadisticas" width="600" height="400"></canvas>-->
+			    		<!--<div class>
+  							<div >
+							    <div style="display: block;">
+							    <canvas id="estadisticas" baseChart width="60" height="30"
+							                [datasets]="lineChartData"
+							                [labels]="lineChartLabels"
+							                [options]="lineChartOptions"
+							                [colors]="lineChartColors"
+							                [legend]="lineChartLegend"
+							                [chartType]="lineChartType"
+							                [plugins]="lineChartPlugins"
+
+							                ></canvas>
+							    </div>
+							</div>
+						  	<div class="pull-right" >
+						  		<div class="col-md-12">
+							  		<table class="table table-responsive table-condensed">
+							     		<tr>
+							        		<th *ngFor="let label of lineChartLabels"></th>
+							      		</tr>
+							      
+							    	</table>
+						  		</div>
+						    
+						  	</div>
+						</div>-->
+			    	</div>
+	         	</div>
+
+        	</div>
+
+    	</div>
+    
+    </div>
+   
+</div>
+
+<!--   IVER-------------------------------------------
+-->
+
+<!--   IVER-------------------------------------------
+-->
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-primary">
+              <h4 class="card-title ">Reporte de Ventas</h4>
+          </div>
+          <div class="card-body">
+            <form (ngSubmit)="btnGenerarReporteVentas()" >
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                     <label for="exampleInputEmail1">Fecha Inicio : </label>
+                    <input type="date" id="exampleInput1" name="input1"  ng-model="example.value"
+                    placeholder="yyyy-MM-dd" [(ngModel)]="FECHA_INICIO1"  required/>
+
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group"> 
+                  <label for="exampleInputEmail1">Fecha Fin : </label>
+                   <input type="date" id="exampleInput2" name="input2"  ng-model="example.value"
+                    placeholder="yyyy-MM-dd"  [(ngModel)]="FECHA_FIN1" required/>
+
+                  </div>
+                </div>
+              </div>               
+                <div class="pull-right">                     
+                    <button type="submit"  class="btn btn-primary" >
+                      Generar Reporte
+                    </button>                    
+              </div>                  
+            </form>
+          </div>
+
+      <table *ngIf="SeGeneroReporteVentas"  class="table">
+        <thead class="text-primary">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Día</th>
+            <th scope="col">MontoTotal</th>            
+          </tr>
+        </thead>
+      <tbody>
+        <tr *ngFor="let reporte of reportesv; index as i">          
+          <td>
+            {{i+1}}
+          </td>
+          <td>
+            {{reporte.fecha}}
+          </td>
+          <td>
+            {{reporte.monto_total}}
+          </td>         
+       
+      </tr>
+
+    </tbody>
+    </table>
+
+
+          
+      </div>
+    
+    </div>
+
+      <div style="text-align:center">
+      <h1 *ngIf="SeGeneroReporteVentas" >
+        {{ titleVentas }}!
+      </h1>
+      <canvas id="lineChartVentas" ></canvas>
+    </div>
+   
+</div>
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-primary">
+              <h4 class="card-title ">Reporte de Utilidades por plato</h4>
+          </div>
+          <div class="card-body">
+            <form (ngSubmit)="btnGenerarReportePlatos()" >
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                     <label for="exampleInputEmail1">Fecha Inicio : </label>
+                    <input type="date" id="exampleInput3" name="input3"  ng-model="example.value"
+                    placeholder="yyyy-MM-dd" [(ngModel)]="FECHA_INICIO2"  required/>
+
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group"> 
+                  <label for="exampleInputEmail1">Fecha Fin : </label>
+                   <input type="date" id="exampleInput4" name="input4"  ng-model="example.value"
+                    placeholder="yyyy-MM-dd"  [(ngModel)]="FECHA_FIN2" required/>
+
+                  </div>
+                </div>
+              </div>               
+                <div class="pull-right">                     
+                    <button type="submit"  class="btn btn-primary" >
+                      Generar Reporte
+                    </button>                    
+              </div>                  
+            </form>
+          </div>
+
+      <table *ngIf="SeGeneroReportePlatos" class="table">
+        <thead class="text-primary">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Plato</th>
+            <th scope="col">MontoTotal</th>            
+          </tr>
+        </thead>
+      <tbody>
+        <tr *ngFor="let reporte of reportesp; index as i">          
+          <td>
+            {{i+1}}
+          </td>
+          <td>
+            {{reporte.nombre_plato}}
+          </td>
+          <td>
+            {{reporte.total}}
+          </td>         
+       
+      </tr>
+
+    </tbody>
+    </table>
+
+
+          
+      </div>
+    
+    </div>
+
+    <div style="text-align:center">
+      <h1   *ngIf="SeGeneroReportePlatos">
+        {{ titlePlato}}!
+      </h1>
+      <canvas id="barChartPlatos" ></canvas>
+    </div>
+   
+</div>
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-primary">
+              <h4 class="card-title ">Reporte de Cierre de Caja</h4>
+          </div>
+          <div class="card-body">
+            <form (ngSubmit)="btnCierreCaja()" >
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                     <label for="exampleInputEmail1">Fecha Inicio : </label>
+                    <input type="date" id="exampleInput3" name="input3"  ng-model="example.value"
+                    placeholder="yyyy-MM-dd" [(ngModel)]="FECHA_INICIO3"  required/>
+
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group"> 
+                  <label for="exampleInputEmail1">Fecha Fin : </label>
+                   <input type="date" id="exampleInput4" name="input4"  ng-model="example.value"
+                    placeholder="yyyy-MM-dd"  [(ngModel)]="FECHA_FIN3" required/>
+
+                  </div>
+                </div>
+              </div>               
+                <div class="pull-right">                     
+                    <button type="submit"  class="btn btn-primary" >
+                      Generar Reporte
+                    </button>                    
+              </div>                  
+            </form>
+          </div>
+
+                <table class="table">
+        <thead class="text-primary">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Fecha</th>
+            <th scope="col">Monto Total</th>            
+          </tr>
+        </thead>
+      <tbody>
+        <tr *ngFor="let reportedia of reportesCaja; index as i">          
+          <td>
+            {{i+1}}
+          </td>
+          <td>
+            {{reportedia.fecha}}
+          </td>
+          <td>
+            {{reportedia.total}}
+          </td>         
+       
+      </tr>
+
+    </tbody>
+    </table>
+
+
+          
+      </div>
+    
+    </div>
+   
+</div>
+         

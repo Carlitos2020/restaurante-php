@@ -1,0 +1,75 @@
+<div class="row">
+    <div class="col-lg-7 col-md-7">
+        <div class="card">
+          <div class="card-header card-header-primary">
+            <h4 class="card-title ">Consumo de la mesa {{ numMesa }}</h4>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="table-responsive">
+                    <table class="table">
+                      <thead class=" text-primary">
+                        <tr>
+                          <th>
+                            Plato
+                          </th>
+                          <th>
+                            Estado
+                          </th>
+                          <th>
+                            Monto
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let pedido of pedidos">
+                          <td>
+                            {{ pedido.nombre_plato }}
+                          </td>
+                          <td>
+                            <span *ngIf="pedido.estado === 'PENDIENTE'" class="badge badge-primary text-center" style="padding: 8px">
+                              <strong> {{pedido.estado}} </strong>
+                            </span> 
+                            <span *ngIf="pedido.estado === 'EN PREPARACION'" class="badge badge-info text-center" style="padding: 8px">
+                              <strong> {{pedido.estado}} </strong>
+                            </span>
+                            <span *ngIf="pedido.estado === 'PREPARADO'" class="badge badge-danger text-center" style="padding: 8px">
+                              <strong> {{pedido.estado}} </strong>
+                            </span>
+                            <span *ngIf="pedido.estado === 'ENTREGADO'" class="badge badge-success text-center" style="padding: 8px">
+                                <strong> {{pedido.estado}} </strong>
+                            </span>
+                          </td>
+                          <td>
+                            {{pedido.precio}}
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+            </div>
+            <div>
+              <button (click)="btnRegistrarPago()" class="btn btn-round btn-success">Registrar pago</button>
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <div class="col-lg-5 col-md-5">
+        <div class="card">
+          <div class="card-header card-header-primary">
+            <h4 class="card-title">Mesas</h4>
+          </div>              
+          <div class="card-body">
+            <div class="row">
+              <div *ngFor="let mesa of mesas" class="col-xs-12 col-md-4">
+                <button (click)="btnCambioNumeroMesa(mesa.num_mesa)" class="btn btn-light btn-success" class="btn btn-round" [ngClass]="{'btn-success': mesa.esta_activa, 'btn-secondary': !mesa.esta_activa}" [disabled]="!mesa.esta_activa">
+                  M{{mesa.num_mesa}}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+</div>
+

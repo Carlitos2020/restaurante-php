@@ -1,0 +1,47 @@
+
+<div class="wrapper fadeInDown">
+  <div id="formContent">
+    <!-- Tabs Titles -->
+
+    <!-- Icon -->
+    <div class="fadeIn first">
+      <img src="assets/img/logo.jpg" id="icon" alt="User Icon" />
+    </div>
+
+    <!-- Login Form -->
+    <form (ngSubmit)="btnIniciarSesion()" #iniciarSesionForm="ngForm">
+      <input 
+        type="email" 
+        id="login" 
+        class="fadeIn second" 
+        name="username" 
+        placeholder="Correo" 
+        [(ngModel)]="username"
+        #email="ngModel"
+        required
+      >
+      <div [hidden]="email.valid || email.pristine" class="alert alert-danger">
+        Ingresa el correo
+      </div>
+      <input 
+        type="password" 
+        id="password" 
+        class="fadeIn third" 
+        name="password" 
+        placeholder="contraseña" 
+        [(ngModel)]="password"
+        #pass="ngModel"
+        required
+      >
+      <div [hidden]="pass.valid || pass.pristine" class="alert alert-danger">
+        Ingresa el password
+      </div>
+      <input type="submit" class="fadeIn fourth" value="INGRESAR" [disabled]="!iniciarSesionForm.form.valid">
+    </form>
+    <!-- Remind Passowrd -->
+    <div id="formFooter">
+      <a class="underlineHover" href="#">Olvidaste tu Contraseña?</a>
+    </div>
+
+  </div>
+</div>

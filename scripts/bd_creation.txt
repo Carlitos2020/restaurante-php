@@ -1,0 +1,307 @@
+-- MySQL Workbench Forward Engineering
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+
+-- -----------------------------------------------------
+-- Schema restaurante
+-- -----------------------------------------------------
+
+-- -----------------------------------------------------
+-- Schema restaurante
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `restaurante` DEFAULT CHARACTER SET utf8 ;
+USE `restaurante` ;
+
+-- -----------------------------------------------------
+-- Table `restaurante`.`roles`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `restaurante`.`roles` (
+  `idrol` INT NOT NULL AUTO_INCREMENT,
+  `nombre_rol` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`idrol`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `restaurante`.`users`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `restaurante`.`users` (
+  `iduser` INT NOT NULL AUTO_INCREMENT,
+  `idrol` INT NOT NULL,
+  `username` VARCHAR(45) NOT NULL,
+  `password` VARCHAR(45) NOT NULL,
+  `nombre_usuario` VARCHAR(45) NOT NULL,
+  `esta_activo` TINYINT NOT NULL DEFAULT 1,
+  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`iduser`),
+  UNIQUE INDEX `userName_UNIQUE` (`username` ASC) ,
+  INDEX `fk_users_roles1_idx` (`idrol` ASC) ,
+  CONSTRAINT `fk_users_roles1`
+    FOREIGN KEY (`idrol`)
+    REFERENCES `restaurante`.`roles` (`idrol`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `restaurante`.`insumos`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `restaurante`.`insumos` (
+  `idinsumo` INT NOT NULL AUTO_INCREMENT,
+  `nombre_insumo` VARCHAR(45) NOT NULL,
+  `cantidad_minima` DECIMAL(8,2) NOT NULL,
+  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`idinsumo`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `restaurante`.`almacen`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `restaurante`.`almacen` (
+  `idinsumo` INT NOT NULL,
+  `cantidad` DECIMAL(8,2) NOT NULL DEFAULT 0,
+  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`idinsumo`),
+  CONSTRAINT `fk_almacen_Insumos1`
+    FOREIGN KEY (`idinsumo`)
+    REFERENCES `restaurante`.`insumos` (`idinsumo`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `restaurante`.`historial_almacen`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `restaurante`.`historial_almacen` (
+  `idhistorial_almacen` INT NOT NULL,
+  `es_ajuste` TINYINT NOT NULL DEFAULT 0,
+  `idinsumo` INT NOT NULL,
+  `idalmacenero` INT NOT NULL,
+  `cantidad` DECIMAL(8,2) NOT NULL,
+  `descripcion` VARCHAR(120) NULL,
+  `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`idhistorial_almacen`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `restaurante`.`historial_caja`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `restaurante`.`historial_caja` (
+  `idhistorial_caja` INT NOT NULL,
+  `monto_inicial` DECIMAL(8,2) NOT NULL,
+  `monto_final_calculado` DECIMAL(8,2) NULL,
+  `monto_final_ingresado` DECIMAL(8,2) NULL,
+  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`idhistorial_caja`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `restaurante`.`caja_actual`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `restaurante`.`caja_actual` (
+  `idcaja` INT NOT NULL AUTO_INCREMENT,
+  `monto_actual` DECIMAL(8,2) NULL,
+  `idactual_historial_caja` INT NULL,
+  PRIMARY KEY (`idcaja`),
+  INDEX `fk_caja_actual_historial_caja1_idx` (`idactual_historial_caja` ASC) ,
+  CONSTRAINT `fk_caja_actual_historial_caja1`
+    FOREIGN KEY (`idactual_historial_caja`)
+    REFERENCES `restaurante`.`historial_caja` (`idhistorial_caja`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `restaurante`.`platos`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `restaurante`.`platos` (
+  `idplato` INT NOT NULL,
+  `nombre_plato` VARCHAR(45) NOT NULL,
+  `precio` DECIMAL(6,2) NOT NULL,
+  `esta_activo` TINYINT NOT NULL DEFAULT 1,
+  `necesita_preparacion` TINYINT NOT NULL DEFAULT 1,
+  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`idplato`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `restaurante`.`platos_insumos`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `restaurante`.`platos_insumos` (
+  `idplato` INT NOT NULL,
+  `idinsumo` INT NOT NULL,
+  `cantidad` DECIMAL(5,2) NOT NULL,
+  PRIMARY KEY (`idplato`, `idinsumo`),
+  INDEX `fk_platos_has_insumos_insumos1_idx` (`idinsumo` ASC) ,
+  INDEX `fk_platos_has_insumos_platos1_idx` (`idplato` ASC) ,
+  CONSTRAINT `fk_platos_has_insumos_platos1`
+    FOREIGN KEY (`idplato`)
+    REFERENCES `restaurante`.`platos` (`idplato`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_platos_has_insumos_insumos1`
+    FOREIGN KEY (`idinsumo`)
+    REFERENCES `restaurante`.`insumos` (`idinsumo`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `restaurante`.`mesas`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `restaurante`.`mesas` (
+  `num_mesa` INT NOT NULL,
+  `esta_activa` TINYINT NOT NULL DEFAULT 1,
+  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`num_mesa`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `restaurante`.`pedidos`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `restaurante`.`pedidos` (
+  `idpedido` INT NOT NULL AUTO_INCREMENT,
+  `idplato` INT NOT NULL,
+  `num_mesa` INT NULL,
+  `idmozo` INT NULL,
+  `estado` ENUM('PENDIENTE', 'EN PREPARACION', 'PREPARADO', 'ENTREGADO') NOT NULL,
+  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`idpedido`),
+  INDEX `fk_pedidos_mesas1_idx` (`num_mesa` ASC) ,
+  INDEX `fk_pedidos_platos1_idx` (`idplato` ASC) ,
+  CONSTRAINT `fk_pedidos_mesas1`
+    FOREIGN KEY (`num_mesa`)
+    REFERENCES `restaurante`.`mesas` (`num_mesa`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_pedidos_platos1`
+    FOREIGN KEY (`idplato`)
+    REFERENCES `restaurante`.`platos` (`idplato`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `restaurante`.`historial_pedidos`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `restaurante`.`historial_pedidos` (
+  `idhistorial_pedido` INT NOT NULL AUTO_INCREMENT,
+  `idplato` INT NOT NULL,
+  `idmozo` INT NULL,
+  `monto` DECIMAL(6,2) NOT NULL,
+  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`idhistorial_pedido`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `restaurante`.`operaciones_caja`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `restaurante`.`operaciones_caja` (
+  `idoperaciones_caja` INT NOT NULL,
+  `idhistorial_caja` INT NOT NULL,
+  `monto` DECIMAL(8,2) NOT NULL,
+  `descripcion` VARCHAR(120) NOT NULL,
+  `idcajero` INT NOT NULL,
+  `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`idoperaciones_caja`),
+  INDEX `fk_operaciones_caja_historial_caja1_idx` (`idhistorial_caja` ASC) ,
+  CONSTRAINT `fk_operaciones_caja_historial_caja1`
+    FOREIGN KEY (`idhistorial_caja`)
+    REFERENCES `restaurante`.`historial_caja` (`idhistorial_caja`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `restaurante`.`procedimientos`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `restaurante`.`procedimientos` (
+  `idprocedimiento` INT NOT NULL,
+  `nombre_procedimiento` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`idprocedimiento`),
+  UNIQUE INDEX `nombre_procedimiento_UNIQUE` (`nombre_procedimiento` ASC))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `restaurante`.`tiempo_real`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `restaurante`.`tiempo_real` (
+  `idtiempo_real` INT NOT NULL,
+  `idprocedimiento` INT NOT NULL,
+  `iduser` INT NOT NULL,
+  `token` VARCHAR(45) NOT NULL,
+  `esta_modificado` TINYINT NOT NULL DEFAULT 0,
+  PRIMARY KEY (`idtiempo_real`),
+  INDEX `fk_tiempo_real_procedimientos1_idx` (`idprocedimiento` ASC) ,
+  UNIQUE INDEX `token_UNIQUE` (`token` ASC) ,
+  CONSTRAINT `fk_tiempo_real_procedimientos1`
+    FOREIGN KEY (`idprocedimiento`)
+    REFERENCES `restaurante`.`procedimientos` (`idprocedimiento`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `restaurante`.`proveedores`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `restaurante`.`proveedores` (
+  `idproveedor` INT NOT NULL AUTO_INCREMENT,
+  `nombre_proveedor` VARCHAR(45) NOT NULL,
+  `direccion_proveedor` VARCHAR(60) NULL,
+  `descripcion` VARCHAR(120) NULL,
+  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`idproveedor`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `restaurante`.`proveedores_insumos`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `restaurante`.`proveedores_insumos` (
+  `idproveedor` INT NOT NULL,
+  `idinsumo` INT NOT NULL,
+  `precio_por_unidad` DECIMAL(8,2) NOT NULL,
+  PRIMARY KEY (`idproveedor`, `idinsumo`),
+  INDEX `fk_insumos_has_proveedores_proveedores1_idx` (`idproveedor` ASC) ,
+  INDEX `fk_insumos_has_proveedores_insumos1_idx` (`idinsumo` ASC) ,
+  CONSTRAINT `fk_insumos_has_proveedores_insumos1`
+    FOREIGN KEY (`idinsumo`)
+    REFERENCES `restaurante`.`insumos` (`idinsumo`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_insumos_has_proveedores_proveedores1`
+    FOREIGN KEY (`idproveedor`)
+    REFERENCES `restaurante`.`proveedores` (`idproveedor`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+

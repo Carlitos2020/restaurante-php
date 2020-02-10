@@ -1,0 +1,34 @@
+				<div class="table-responsive">
+                    <h4 class="card-title ">Pedidos listos</h4>
+                    <table class="table">
+                      <thead class=" text-primary">
+                        <tr>
+                          <th>
+                            Plato
+                          </th>
+                          <th>
+                            Mesa
+                          </th>
+                          <th>
+                            <!-- Boton pasar a listo !-->
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let pedido of pedidos">
+                            <td>
+                              {{ pedido.nombre_plato }}
+                            </td>
+                            <td>
+                            	<strong *ngIf="pedido.num_mesa != null"> Mesa {{ pedido.num_mesa }} </strong>
+                              <strong *ngIf="pedido.num_mesa == null"> Para llevar </strong>
+                            </td>
+                            <td>
+                              <button class="btn btn-success btn-round" (click)="btnPasarPedidoAEntregado(pedido.idpedido)">
+                                Entregado
+                              </button>
+                            </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>

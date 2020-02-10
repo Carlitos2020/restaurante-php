@@ -1,0 +1,65 @@
+<div class="row">
+    <div class="col-lg-7 col-md-7">
+        <div class="card">
+            <div class="card-header card-header-tabs card-header-primary">
+                <div class="nav-tabs-navigation pull-left">
+                    <div class="nav-tabs-wrapper">
+                        <span class="nav-tabs-title">Pedidos:</span>
+                        <ul class="nav nav-tabs" data-tabs="tabs">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#nuevo" data-toggle="tab">
+                            <i class="material-icons">bug_report</i> NUEVO
+                            <div class="ripple-container"></div>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#ver-todos" data-toggle="tab" (click)="recargarPedidos()">
+                            <i class="material-icons">code</i> VER TODOS
+                            <div class="ripple-container"></div>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#servidos" data-toggle="tab">
+                            <i class="material-icons">cloud</i> PARA SERVIR
+                            <div class="ripple-container"></div>
+                            </a>
+                        </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="preloader pull-right align-middle" [style.display]="cargando ? 'block' : 'none'"></div>
+            </div>
+            <div class="card-body">
+                <div class="tab-content">
+                    <div class="tab-pane active" id="nuevo">
+                        <app-pedidos-add [numMesa]="mesaEscogida"></app-pedidos-add>
+                    </div>
+                    <div class="tab-pane" id="ver-todos">
+                        <app-pedidos-list [numMesa]="mesaEscogida" [hayQueRecargar]="actualizacionPedidos"></app-pedidos-list>
+                    </div>
+                    <div class="tab-pane" id="servidos">
+                        <app-pedidos-ready></app-pedidos-ready>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-5 col-md-5">
+        <div class="card">
+          <div class="card-header card-header-primary">
+            <h4 class="card-title">Mesas</h4>
+          </div>              
+          <div class="card-body">
+            <div class="row">
+              <div *ngFor="let mesa of mesas" class="col-xs-12 col-md-4">
+                <button (click)="btnCambioNumeroMesa(mesa.num_mesa)" class="btn btn-light btn-success" class="btn btn-round" [ngClass]="{'btn-success': mesa.esta_activa, 'btn-secondary': !mesa.esta_activa, 'active': mesa.num_mesa === mesaEscogida}" [disabled]="!mesa.esta_activa">
+                  M{{mesa.num_mesa}}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+</div>
+

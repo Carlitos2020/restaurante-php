@@ -1,0 +1,35 @@
+		<div class="container-fluid">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="card">
+                <div class="card-header card-header-primary">
+                  <h4 class="card-title">Editar Entrada al Almacen</h4>
+                  <p class="card-category">Edite la cantidad real del insumo existente en almacen</p>
+                </div>
+                <div class="card-body">
+                  <form (ngSubmit)="btnActualizarEntrada()">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group bmd-form-group">
+                          <input type="text" class="form-control" [(ngModel)]="nombre_insumo" name="nombre_insumo" required placeholder="Nombre del insumo">
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group bmd-form-group">
+                          <input type="number" class="form-control" step="0.1" [(ngModel)]="cantidad" name="cantidad" required placeholder="Cantidad real del insumo">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="pull-right">
+                      <button type="submit" class="btn btn-primary ">
+                        Ajustar Entrada
+                      </button>
+                       <button class="btn btn-primary" (click)="btnCancelar()">Cancelar</button>
+                    </div>
+                    <div class="clearfix"></div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>

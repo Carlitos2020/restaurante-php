@@ -1,0 +1,52 @@
+<div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-primary">
+            <h4 class="card-title">Editar empleado</h4>
+            <p class="card-category">Ingrese nuevos datos empleado</p>
+          </div>
+          <div class="card-body">
+            <form (ngSubmit)="btnActualizarDatos()">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group bmd-form-group">
+                    <input type="text" class="form-control" [(ngModel)]="firstname" name="firstname" required placeholder="Nombre completo del empleado">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group bmd-form-group">
+                    <input type="text" class="form-control" [(ngModel)]="surname" name="surname" required placeholder="Apellido del empleado">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group bmd-form-group">
+                    <input type="text" class="form-control" [(ngModel)]="username" name="username" required placeholder="Nombre de usuario del empleado">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group bmd-form-group">
+                    <select [(ngModel)]="rol_id" name="rol_id" class="form-control" required>
+                      <option selected="true" value="0" disabled>-- Escoja el rol del empleado --</option>
+                      <option *ngFor="let rol of roles" [value]="rol.rol_id">
+                        {{rol.nombre_rol | lowercase}}
+                      </option>           
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="pull-right">
+                <button type="submit" class="btn btn-primary">
+                  Actualizar empleado
+                </button>
+                <button class="btn btn-secondary" (click)="btnCancelar()">Cancelar</button>
+              </div>
+              <div class="clearfix"></div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

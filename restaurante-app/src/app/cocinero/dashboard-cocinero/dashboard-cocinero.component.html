@@ -1,0 +1,185 @@
+
+<div class="row">
+    <div class="col-lg-12 col-md-12">
+        <div class="card">
+        <div class="card-header card-header-tabs card-header-primary">
+            <div class="nav-tabs-navigation">
+                <div class="nav-tabs-wrapper">
+                    <span class="nav-tabs-title">Pedidos:</span>
+                    <ul class="nav nav-tabs" data-tabs="tabs">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#orderNP" data-toggle="tab">
+                        <i class="material-icons">brightness_5</i> Pedidos que necesitan preparar
+                        <div class="ripple-container"></div>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#orderNNP" data-toggle="tab">
+                        <i class="material-icons">brightness_6</i> Pedidos  que no necesitan preparar
+                        <div class="ripple-container"></div>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#orderEP" data-toggle="tab">
+                        <i class="material-icons">brightness_6</i> Pedidos en preparacion
+                        <div class="ripple-container"></div>
+                        </a>
+                    </li>
+                       <li class="nav-item">
+                        <a class="nav-link" href="#orderL" data-toggle="tab">
+                        <i class="material-icons">brightness_high</i> Pedidos listos
+                        <div class="ripple-container"></div>
+                        </a>
+                    </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="tab-content">
+            <div class="tab-pane active" id="orderNP">                 
+                <table class="table">                   
+                    <thead>
+                        <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Plato</th>
+                        <th scope="col">Estado</th>
+                        <th scope="col">Mesa</th>
+                        <th scope="col">Accion</th>
+                        </tr>
+                    </thead>
+                      <tbody>
+                        <tr *ngFor="let pedido of pedidosCP; index as i">
+                          <td>
+                            {{i+1}}
+                          </td>
+                          <td>
+                            {{pedido.nombre_plato}}
+                          </td>
+                          <td>
+                            {{pedido.estado}}
+                          </td>
+                          <td>
+                            {{pedido.num_mesa}}                     
+                          </td>
+                          <td>
+                            <button type="button" class="btn btn-primary" (click)="btnPasarEnPreparacion(pedido.idpedido)">
+                                Preparar
+                            </button>              
+                          </td>
+                         
+                        </tr>
+                      </tbody>
+                </table>             
+
+            </div>
+            <div class="tab-pane" id="orderNNP">
+                <table class="table">                   
+                    <thead>
+                        <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Plato</th>
+                        <th scope="col">Estado</th>
+                        <th scope="col">Mesa</th>
+                        <th scope="col">Accion</th>
+                        </tr>
+                    </thead>
+                      <tbody>
+                        <tr *ngFor="let pedido of pedidosSP; index as i">
+                          <td>
+                            {{i+1}}
+                          </td>
+                          <td>
+                            {{pedido.nombre_plato}}
+                          </td>
+                          <td>
+                            {{pedido.estado}}
+                          </td>
+                          <td>
+                            {{pedido.num_mesa}}                     
+                          </td>
+                           <td>
+                            <button type="button" class="btn btn-primary" (click)="btnPasarListo(pedido.idpedido)">
+                                Listo
+                            </button>              
+                          </td>
+                         
+                        </tr>
+                      </tbody>
+                </table>   
+            </div>
+
+            <div class="tab-pane" id="orderEP">
+                 <table class="table">                   
+                    <thead>
+                        <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Plato</th>
+                        <th scope="col">Estado</th>
+                        <th scope="col">Mesa</th>
+                        <th scope="col">Accion</th>
+                        </tr>
+                    </thead>
+                      <tbody>
+                        <tr *ngFor="let pedido of pedidosEP; index as i">
+                          <td>
+                            {{i+1}}
+                          </td>
+                          <td>
+                            {{pedido.nombre_plato}}
+                          </td>
+                          <td>
+                            {{pedido.estado}}
+                          </td>
+                          <td>
+                            {{pedido.num_mesa}}                     
+                          </td>
+                           <td>
+                            <button type="button" class="btn btn-primary"(click)="btnPasarListo(pedido.idpedido)">
+                                Listo
+                            </button>              
+                          </td>
+                         
+                        </tr>
+                      </tbody>
+                </table>   
+            </div>
+
+            <div class="tab-pane" id="orderL">
+                 <table class="table">                   
+                    <thead>
+                        <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Plato</th>
+                        <th scope="col">Estado</th>
+                        <th scope="col">Mesa</th>                        
+                        </tr>
+                    </thead>
+                      <tbody>
+                        <tr *ngFor="let pedido of pedidosL; index as i">
+                          <td>
+                            {{i+1}}
+                          </td>
+                          <td>
+                            {{pedido.nombre_plato}}
+                          </td>
+                          <td>
+                            {{pedido.estado}}
+                          </td>
+                          <td>
+                            <div *ngIf="pedido.num_mesa!=null " class="alert alert-warning">
+                              {{pedido.num_mesa}} 
+                            </div>
+                            <div *ngIf="pedido.num_mesa==null " class="alert alert-success">
+                              Para llevar
+                            </div>                                            
+                          </td>                         
+                        </tr>
+                      </tbody>
+                </table>   
+            </div>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>

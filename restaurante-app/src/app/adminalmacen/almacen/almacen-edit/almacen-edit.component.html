@@ -1,0 +1,40 @@
+		<div class="container-fluid">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="card">
+                <div class="card-header card-header-primary">
+                  <h4 class="card-title">Ajustar Insumo</h4>
+                  <p class="card-category">Ajuste la cantidad del insumo</p>
+                </div>
+                <div class="card-body">
+                  <form (ngSubmit)="btnAjustarInsumo()">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group bmd-form-group">
+                          <input type="text" class="form-control" [(ngModel)]="Insumo" name="Insumo" required placeholder="Nombre del insumo">
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group bmd-form-group">
+                          <input type="number" class="form-control" step="0.1" [(ngModel)]="Total" name="Total" required placeholder="Cantidad teórica del insumo">
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group bmd-form-group">
+                          <input type="number" class="form-control" step="0.1" [(ngModel)]="cantidad_ajustada" name="cantidad_ajustada" required placeholder="Cantidad ajustada del insumo">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="pull-right">
+                      <button type="submit" class="btn btn-primary ">
+                        Actualizar insumo
+                      </button>
+                       <button class="btn btn-primary" (click)="btnCancelar()">Cancelar</button>
+                    </div>
+                    <div class="clearfix"></div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>

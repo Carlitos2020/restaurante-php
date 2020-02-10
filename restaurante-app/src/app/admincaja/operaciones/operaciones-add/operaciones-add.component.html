@@ -1,0 +1,67 @@
+          <div class="row">
+            <div class="col-md-8">
+              <div class="card">
+                <div class="card-header card-header-primary">
+                  <h4 class="card-title">Registrar operacion</h4>
+                  <p class="card-category"></p>
+                </div>
+                <div class="card-body">
+                  <form (ngSubmit)="btnAgregarOperacion()">
+                    <div class="row">
+                      <div class="col-md-4">
+                        <div class="form-group bmd-form-group">
+                          <label class="bmd-label-floating">Monto S/</label>
+                          <input type="number" name="montoOperacion" [(ngModel)]="montoOperacion" class="form-control" step="0.01" (ngModelChange)="cambiarMonto()" required>
+                        </div>
+                      </div>
+                      <div class="col-md-8">
+                        <div class="form-group bmd-form-group">
+                          <select class="form-control" name="esEntrada" [(ngModel)]="esEntrada" (ngModelChange)="cambiarMonto()">
+                            <option class="text-secondary" selected disabled>
+                              -- Escoja el tipo de operacion --
+                            </option>
+                            <option [ngValue]="true" class="text-success">
+                              ENTRADA
+                            </option>
+                            <option [ngValue]="false" class="text-danger">
+                              SALIDA
+                            </option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-group bmd-form-group">
+                          <label class="bmd-label-floating">Descripcion</label>
+                          <input type="text" class="form-control" name="descripcion" [(ngModel)]="descripcion">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="pull-right">
+                      <button type="submit" class="btn btn-primary btn-round pull-right">Registrar operacion</button>
+                      <button type="button" class="btn btn-secondary btn-round pull-right" (click)="btnCancelar()">Cancelar operacion</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="card">
+                <div class="card-header card-header-primary">
+                  <h4 class="card-title">Situación de la caja</h4>
+                  <p class="card-category"></p>
+                </div>
+                <div class="card-body">
+                  <h3 class="card-title">Monto acual en la caja</h3>
+                  <h4 [ngClass]="{'text-danger': montoCaja < 0, 'text-success': montoCaja > 0}">
+                    S/.{{ montoCaja | number:'.2'}}
+                  </h4>
+                  <h3 class="card-title" >Monto después de la operación</h3>
+                  <h4 [ngClass]="{'text-danger': nuevoMontoCaja < 0, 'text-success': nuevoMontoCaja > 0}">
+                    S/.{{ nuevoMontoCaja | number:'.2'}}
+                  </h4>
+                </div>
+              </div>
+            </div>
+          </div>

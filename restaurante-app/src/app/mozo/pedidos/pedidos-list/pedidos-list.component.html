@@ -1,0 +1,44 @@
+                  <div class="table-responsive">
+                    <h4 class="card-title ">Pedidos de la mesa {{ numMesa }}</h4>
+                    <h3 *ngIf="pedidos.length === 0">Mesa libre</h3>
+                    <table *ngIf="pedidos.length > 0" class="table">
+                      <thead class=" text-primary">
+                        <tr>
+                          <th>
+                            Plato
+                          </th>
+                          <th>
+                            Estado
+                          </th>
+                          <th>
+                            <!-- Editar -->
+                          </th>
+                          <th>
+                            <!-- Eliminar -->
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody >
+                        <tr *ngFor="let pedido of pedidos">
+                            <td>
+                              {{ pedido.nombre_plato }}
+                            </td>
+                            <td>
+                              <span class="badge text-center" style="padding: 8px" [ngClass]="{'badge-primary': pedido.estado === 'PENDIENTE', 'badge-info': pedido.estado === 'EN PREPARACION', 'badge-danger': pedido.estado === 'PREPARADO', 'badge-success': pedido.estado === 'ENTREGADO'}">
+                                <strong> {{pedido.estado}} </strong>
+                              </span> 
+                            </td>
+                            <td>
+                              <button (click)="btnEditar(pedido.idpedido)" class="btn  btn-round btn-just-icon" [ngClass]="{'btn-primary': pedido.estado === 'PENDIENTE', 'btn-secondary': pedido.estado !== 'PENDIENTE'}" [disabled]="pedido.estado !== 'PENDIENTE'"  data-toggle="tooltip" title="Editar pedido">
+                                <i class="material-icons">create</i>
+                              </button>
+                            </td>
+                            <td>
+                              <button (click)="btnEliminar(pedido.idpedido)" class="btn btn-round btn-just-icon" [ngClass]="{'btn-danger': pedido.estado === 'PENDIENTE', 'btn-secondary': pedido.estado !== 'PENDIENTE'}" [disabled]="pedido.estado !== 'PENDIENTE'" data-toggle="tooltip" title="Eliminar pedido">
+                                <i class="material-icons">delete</i>
+                              </button>
+                            </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
